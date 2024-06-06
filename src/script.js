@@ -1,30 +1,99 @@
+async function uploadCSV() {
+    const fileInput = document.getElementById('csvFile');
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
 
-window.onload = function() {
-  var userData = {
-    name: "Manohar Bontha",
-    id: "1002091309"
-  };
-    <script>
-        // Fetch CSV file
-        fetch('https://manoharbontha3001.blob.core.windows.net/quiz0/q0c.csv')
-            .then(response => response.text())
-            .then(data => {
-                // Parse CSV data
-                const rows = data.split('\n');
-                const table = document.createElement('table');
-                rows.forEach(row => {
-                    const columns = row.split(',');
-                    const tr = document.createElement('tr');
-                    columns.forEach(column => {
-                        const td = document.createElement('td');
-                        td.textContent = column;
-                        tr.appendChild(td);
-                    });
-                    table.appendChild(tr);
-                });
-                document.body.insertBefore(table, document.querySelector('footer')); // Insert table before footer
-            })
-            .catch(error => {
-                console.error('Error fetching CSV file:', error);
-            });
-    </script>
+    try {
+        const response = await fetch('/upload_csv', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            alert('CSV uploaded successfully');
+        } else {
+            const errorText = await response.text();
+            alert(`Failed to upload CSV: ${errorText}`);
+        }
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+}
+
+async function searchByName() {
+    const name = document.getElementById('searchName').value;
+    try {
+        const response = await fetch(`/search?name=${name}`);
+        if (response.ok) {
+            const results = await response.json();
+            displayResults(results);
+        } else {
+            const errorText = await response.text();
+            alert(`Search failed: ${errorText}`);
+        }
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+}
+
+async function searchBySalary() {
+    const salary = document.getElementById('searchSalary').value;
+    try {
+        const response = await fetch(`/search?salary=${salary}`);
+        if (response.ok) {
+            const results = await response.json();
+            displayResults(results);
+        } else {
+            const errorText = await response.text();
+            alert(`Search failed: ${errorText}`);
+        }
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+}
+
+function displayResults(results) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = '';
+    results.forEach(person => {
+        const img = document.createElement('img');
+        img.src = `/get_image/${person.Picture}`;
+        resultsDiv.appendChild(img);
+    });
+}
+
+function goToLogin() {
+    window.location.href = '/login';
+}
+
+function logout() {
+    window.location.href = '/logout';
+}
+
+document.getElementById('loginForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const formData = new URLSearchParams();
+    formData.append('username', username);
+    formData.append('password', password);
+
+    try {
+        const response = await fetch('/login', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+
+        if (response.ok) {
+            window.location.href = '/search_page';
+        } else {
+            const errorText = await response.text();
+            alert(`Login failed: ${errorText}`);
+        }
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+});
