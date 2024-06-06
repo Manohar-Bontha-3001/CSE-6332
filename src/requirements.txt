@@ -1,5 +1,0 @@
-Flask
-Flask-Login
-Werkzeug
-azure-storage-blob
-gunicorn
