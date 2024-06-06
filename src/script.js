@@ -1,32 +1,13 @@
-async function uploadCSV() {
-    const fileInput = document.getElementById('csvFile');
-    const formData = new FormData();
-    formData.append('file', fileInput.files[0]);
-
-    try {
-        const response = await fetch('/upload_csv', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            alert('CSV uploaded successfully');
-        } else {
-            const errorText = await response.text();
-            alert(`Failed to upload CSV: ${errorText}`);
-        }
-    } catch (error) {
-        alert(`Error: ${error.message}`);
-    }
-}
+// script.js
 
 async function searchByName() {
     const name = document.getElementById('searchName').value;
     try {
-        const response = await fetch(`/search?name=${name}`);
+        const response = await fetch(`/get_csv_data`);
         if (response.ok) {
             const results = await response.json();
-            displayResults(results);
+            const filteredResults = results.filter(person => person.Name.toLowerCase().includes(name.toLowerCase()));
+            displayResults(filteredResults);
         } else {
             const errorText = await response.text();
             alert(`Search failed: ${errorText}`);
@@ -39,10 +20,11 @@ async function searchByName() {
 async function searchBySalary() {
     const salary = document.getElementById('searchSalary').value;
     try {
-        const response = await fetch(`/search?salary=${salary}`);
+        const response = await fetch(`/get_csv_data`);
         if (response.ok) {
             const results = await response.json();
-            displayResults(results);
+            const filteredResults = results.filter(person => parseInt(person.Salary) < parseInt(salary));
+            displayResults(filteredResults);
         } else {
             const errorText = await response.text();
             alert(`Search failed: ${errorText}`);
@@ -61,39 +43,3 @@ function displayResults(results) {
         resultsDiv.appendChild(img);
     });
 }
-
-function goToLogin() {
-    window.location.href = '/login';
-}
-
-function logout() {
-    window.location.href = '/logout';
-}
-
-document.getElementById('loginForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const formData = new URLSearchParams();
-    formData.append('username', username);
-    formData.append('password', password);
-
-    try {
-        const response = await fetch('/login', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
-
-        if (response.ok) {
-            window.location.href = '/search_page';
-        } else {
-            const errorText = await response.text();
-            alert(`Login failed: ${errorText}`);
-        }
-    } catch (error) {
-        alert(`Error: ${error.message}`);
-    }
-});
