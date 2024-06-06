@@ -3,22 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Manohar Bontha App</title>
+    <title>QUIZ 1</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="header">
-        <h1>Welcome to the Cloud Storage App</h1>
-        <p>This is the personal page of Manohar Bontha</p>
+    <div class="section" id="home">
+      <img src="https://manoharbontha3001.blob.core.windows.net/quiz1/sinong.jpg?sp=r&st=2024-06-06T20:46:56Z&se=2024-06-07T04:46:56Z&sv=2022-11-02&sr=b&sig=pwDjccX2UHVaBzDA7tmEHtEkN7xEYS8fyiZZ%2FXC7OwA%3D" alt="Picture" class="center"> 
+      <h1>Manohar Bontha - 1002091309</h1>
     </div>
-    <button onclick="uploadCSV()">Upload CSV</button>
-    <label for="searchName">Search by Name:</label>
-    <input type="text" id="searchName" name="searchName">
-    <button onclick="searchByName()">Search</button>
-    <label for="searchSalary">Search by Salary:</label>
-    <input type="number" id="searchSalary" name="searchSalary">
-    <button onclick="searchBySalary()">Search</button>
-    <div id="results"></div>
-    <script src="script.js"></script>
+
+    <div class="section" id="product-info">
+        <h1>Product Information</h1>
+        <form action="product.php" method="post">
+            <label for="name">Enter Name:</label>
+            <input type="text" id="name" name="name" required>
+            <input type="submit" value="Get Product">
+        </form>
+        <div id="product-result"></div>
+    </div>
+
+    <div class="section" id="update-description">
+        <h1>Update Description</h1>
+        <form action="update.php" method="post">
+            <label for="name">Enter Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="description">New Description:</label>
+            <input type="text" id="description" name="description" required>
+            <input type="submit" value="Update Description">
+        </form>
+        <div id="update-result"></div>
+    </div>
+
+    <div class="section" id="delete-user-picture">
+        <h1>Delete User or Picture</h1>
+        <form action="delete.php" method="post">
+            <label for="name">Enter Name:</label>
+            <input type="text" id="name" name="name" required>
+            <input type="submit" value="Delete">
+        </form>
+        <div id="delete-result"></div>
+    </div>
 </body>
 </html>
+
