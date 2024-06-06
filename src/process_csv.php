@@ -1,17 +1,7 @@
 <?php
-require 'vendor/autoload.php';
-
-use MicrosoftAzure\Storage\Blob\BlobRestProxy;
-use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
-
-$connectionString = "DefaultEndpointsProtocol=https;AccountName=manoharbontha3001;AccountKey=lxe8KMUdlOG7NpjW/8OMqDlNdcGmxFRl6R5Ta/25R0H1lUgLrt6zSwpaAarKFc2Rt8wECtaV/yQN+ASt+UyWzg==;EndpointSuffix=core.windows.net";
-$containerName = "quiz1";
-$blobName = "q0c.csv";
+require 'db_connection.php'; // Include the database connection script
 
 try {
-    // Create blob client.
-    $blobClient = BlobRestProxy::createBlobService($connectionString);
-
     // Get blob.
     $blob = $blobClient->getBlob($containerName, $blobName);
     $content = stream_get_contents($blob->getContentStream());
@@ -38,6 +28,6 @@ try {
     echo "</table>";
 } catch (ServiceException $e) {
     // Handle exception.
-    echo "Error: " . $e->getMessage();
+    echo "Error retrieving blob: " . $e->getMessage();
 }
 ?>
