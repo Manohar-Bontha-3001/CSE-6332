@@ -4,9 +4,9 @@ require 'vendor/autoload.php';
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 
-$connectionString = "DefaultEndpointsProtocol=https;AccountName=your_account_name;AccountKey=your_account_key;EndpointSuffix=core.windows.net";
-$containerName = "your-container-name";
-$blobName = "your-file.csv";
+$connectionString = "DefaultEndpointsProtocol=https;AccountName=manoharbontha3001;AccountKey=lxe8KMUdlOG7NpjW/8OMqDlNdcGmxFRl6R5Ta/25R0H1lUgLrt6zSwpaAarKFc2Rt8wECtaV/yQN+ASt+UyWzg==;EndpointSuffix=core.windows.net";
+$containerName = "quiz1";
+$blobName = "q0c.csv";
 
 try {
     // Create blob client.
