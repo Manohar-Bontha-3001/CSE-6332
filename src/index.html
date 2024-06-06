@@ -4,12 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Cloud Storage App - Home</title>
+    <title>Manohar Bontha App</title>
 </head>
 <body>
-    <h1>Welcome to the Cloud Storage App</h1>
-    <p>This is the personal page of [Your Name]</p>
-    <button onclick="goToLogin()">Login</button>
+    <div id="header">
+        <h1>Welcome to the Cloud Storage App</h1>
+        <p>This is the personal page of Manohar Bontha</p>
+    </div>
+    <button onclick="uploadCSV()">Upload CSV</button>
+    <label for="searchName">Search by Name:</label>
+    <input type="text" id="searchName" name="searchName">
+    <button onclick="searchByName()">Search</button>
+    <label for="searchSalary">Search by Salary:</label>
+    <input type="number" id="searchSalary" name="searchSalary">
+    <button onclick="searchBySalary()">Search</button>
+    <div id="results"></div>
     <script src="script.js"></script>
 </body>
 </html>
